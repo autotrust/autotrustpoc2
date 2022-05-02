@@ -14,15 +14,15 @@ export default function Contact(){
                 <div className="col" id="foot1">
                     <ul>Contact Us</ul>
                     <div className="det">
-                    <ul>Call Us</ul>
-                    <ul>Have us Contact u</ul>
-                    <ul>Email or Drop in</ul>
+                    <ul>Call Us</ul><br/>
+                    <ul>Have us Contact u</ul><br/>
+                    <ul>Email or Drop in</ul><br/>
                     </div>
                 </div>
                 <div className="col" id="foot">
                     <ul>More</ul>
                     <div className="det">
-                    <ul>The Team</ul>
+                    <ul>The Team</ul><br/>
                     <ul>Join Us</ul>
                     </div>
                 </div>

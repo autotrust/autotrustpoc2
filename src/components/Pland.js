@@ -40,9 +40,11 @@ export default function Pland(){
                 <div className="container-p">
             <div className="row">
                 <div className="Box">
+                <form>
                     <h2 id="hd11">
                         Generate AUTOTRUST Report
                     </h2>
+                    
                     <input type="number" id="iprp" placeholder="ENTER QUSBEN NUMBER" required/>
                     <input type="number" id="iprp" placeholder="ENTER KUBSOKA NUMBER" required/>
                     <ul id="rety">Report Type *</ul>
@@ -57,6 +59,7 @@ export default function Pland(){
                     {/* <button id="bt2">Generate Report</button> */}
                     <Link to="/components/Psignup"><button id="bt2" >Generate Report</button></Link>
                     </div>
+                    </form>
                     
 
                 </div>
