@@ -108,7 +108,7 @@ function Signup() {
         const {email, password} = formState
         await Auth.signIn(email, password)
         updateFormState(()=>({...formState, formType:"signedIn" }))
-        // window.location.reload(false);
+        window.location.reload(false);
     }
 
     async function forgotPassword(){
