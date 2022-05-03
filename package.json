@@ -1,6 +1,7 @@
 {
   "name": "main",
   "version": "0.1.0",
+  "homepage": "https://master.dxnaae6q42r2f.amplifyapp.com/",
   "private": true,
   "dependencies": {
     "@fortawesome/free-brands-svg-icons": "^6.1.1",
