@@ -12,13 +12,6 @@ import {IoMdContact} from 'react-icons/io';
 import Logo from '../assets/DesignImages/ATFullIcon2.png'
 import '../styles/PlandSi.css';
 import {Auth, Hub} from 'aws-amplify';
-// import axios from 'axios';
-import validate from './LoginFormValidationRules';
-import useForm from './useForm';
-// const Form = () => {
-//   const {
-    
-//   } 
 
 const initialFormState = {
     username:'',
