@@ -12,7 +12,13 @@ import {IoMdContact} from 'react-icons/io';
 import Logo from '../assets/DesignImages/ATFullIcon2.png'
 import '../styles/PlandSi.css';
 import {Auth, Hub} from 'aws-amplify';
-import axios from 'axios';
+// import axios from 'axios';
+import validate from './LoginFormValidationRules';
+import useForm from './useForm';
+// const Form = () => {
+//   const {
+    
+//   } 
 
 const initialFormState = {
     username:'',
@@ -22,25 +28,18 @@ const initialFormState = {
     name:'',
     code:'',
     new_password:'',
-    formType:'signIn'
-  }
+    formType:'signIn',
+  };
 
 function Signup() {
+
     
     const [formState, updateFormState]= useState(initialFormState)
     const [user, updateUser] = useState(null)
     useEffect(()=>{
         checkUser()
         authHandler()
-        // setTimeout(()=>{
-        //     fetch("http://localhost:3000/")
-        //     .then(res => {
-        //         return res.json();
-        //     })
-        //     .catch(err => {
-        //         console.log("error : ",err.message);
-        //     })
-        // })
+        
     }, [])
 
     async function authHandler(){
@@ -59,8 +58,13 @@ function Signup() {
                 
                   break;
               case 'signIn_failure':
-                  console.log('user sign in failed');
-                  alert(data.payload.data.message)
+                  console.log('user sign in failed', data); 
+                  if(data.payload.data.message==="Custom auth lambda trigger is not configured for the user pool."){
+                    alert("Password is required!")
+                  }
+                  else{
+                      alert(data.payload.data.message)
+                  }
                   break;
             case 'signUp_failure':
                     console.log('user sign up failed : ', data.payload.data.message)
@@ -68,20 +72,27 @@ function Signup() {
                     break;
               case 'configured':
                   console.log('the Auth module is configured');
-            }
-          });
+                  break;
+            case 'AuthError':
+                console.log("error ")
+                break;
+        }});
     }
+
 
     async function checkUser(){
         try{
             const user = await Auth.currentAuthenticatedUser()
+            // const info = await Auth.currentSession()
+            // const userName = info.idToken.payload['cognito:attributes']
+            // console.log("usenam:", userName)
             console.log('user:', user)
             console.log('userdata', user.data)
-            console.log('data:', user.getUsername())
+            console.log('data:', user.attributes.name)
             updateUser(user)
             updateFormState(()=>({...formState, formType:"signedIn" }))
         }catch(err) {
-            // updateUser(null)
+            updateUser(null)
         }
     }
     function onChange(e){
@@ -104,6 +115,7 @@ function Signup() {
         const {email, password} = formState
         await Auth.signIn(email, password)
         updateFormState(()=>({...formState, formType:"signedIn" }))
+        window.location.reload(false);
     }
 
     async function forgotPassword(){
@@ -219,13 +231,14 @@ function Signup() {
                     formType==='signIn' &&(
                     <div className='row'>
                         <Header/>
+                    {/* <form> */}
                     <div id="k" className="col-4">
                     <h3 >Sign In</h3>
-                    
                     {/* <label>USERNAME</label>
                     <input id='ipb' name='username' onChange={onChange} placeholder='username'/> */}
                     <label>EMAIL</label>
-                    <input id='ipb' name='email' onChange={onChange} placeholder='Enter your registered email Id' required/>
+                    <input id='ipb'  name='email' onChange={onChange}  placeholder='Enter your registered email Id' required/>
+                    
                     <p id='par' onClick={() => updateFormState(()=>({...formState, formType:'signUp'}))}>Haven't registered? Sign Up Now </p>
                     <label>PASSWORD</label>
                     <input name='password' id='ipb' type="password" onChange={onChange} placeholder='Enter password' required/>
@@ -242,6 +255,7 @@ function Signup() {
                         <p>amet dictum sit amet justo donec enim diam vulpu ut pharetra sit amet aliquam id dia</p>
                     </div>
                 </div>
+                {/* </form> */}
                 </div>
                         )
                     }
@@ -260,9 +274,9 @@ function Signup() {
                 </div>
                 <div id="dd" class ="col-2">
                     <li class="dropdown">
-                    <a id='uname' href="javascript:void(0)" class="dropbtn"><IoMdContact/>{' '}</a>
+                    <a id='uname' href="javascript:void(0)" class="dropbtn"><IoMdContact/>{' '}My Account</a>
                     <div  class="dropdown-content">
-                            <a id='usdd' class="dropdown-item" onClick={() => updateFormState(()=>({...formState, formType:'account'}))}>My Account</a>
+                            <a id='usdd' class="dropdown-item" onClick={() => updateFormState(()=>({...formState, formType:'account'}))}>Account Info</a>
                             <div class="dropdown-divider"></div>
                             <a id='usdd' class="dropdown-item" onClick={ ()=>Auth.signOut()}>Sign Out</a>
                     </div>
@@ -289,9 +303,9 @@ function Signup() {
                                     </div>
                                     <div id="dd" class ="col-2">
                                         <li class="dropdown">
-                                        <a id='uname' href="javascript:void(0)" class="dropbtn"><IoMdContact/>{' '} </a>
+                                        <a id='uname' href="javascript:void(0)" class="dropbtn"><IoMdContact/>{' '}My Account</a>
                                         <div  class="dropdown-content">
-                                                <a id='usdd' class="dropdown-item" onClick={() => updateFormState(()=>({...formState, formType:'account'}))}>My Account</a>
+                                                <a id='usdd' class="dropdown-item" onClick={() => updateFormState(()=>({...formState, formType:'account'}))}>Account Info</a>
                                                 <div class="dropdown-divider"></div>
                                                 <button id='usdd' class="dropdown-item" onClick={ ()=>Auth.signOut()}>Sign Out</button>
                                         </div>
@@ -324,14 +338,14 @@ function Signup() {
                                     </div>
                                     <div id="middle1" class ="col-6">  
                                     {/* <button onClick={() => updateFormState(()=>({...formState, formType:'signedIn'}))} class="button buttons">DASHBOARD</button>          */}
-                                    <button onClick={() => updateFormState(()=>({...formState, formType:'generateReport'}))} id="butn3" class="button buttons">GENERATE REPORT</button>
+                                    <button onClick={() => updateFormState(()=>({...formState, formType:'signedIn'}))} id="butn3" class="button buttons">GENERATE REPORT</button>
                                     <button onClick={() => updateFormState(()=>({...formState, formType:'myreports'}))} id='butn3' class="button buttons">ALL REPORTS</button>
                                     </div>
                                     <div id="dd" class ="col-2">
                                         <li class="dropdown">
-                                        <a id='uname' class="dropbtn"><IoMdContact/>{' '}{user.attributes.name}</a>
+                                        <a id='uname' class="dropbtn"><IoMdContact/> {' '}My Account</a>
                                         <div  class="dropdown-content">
-                                                <a id='usdd' class="dropdown-item" onClick={() => updateFormState(()=>({...formState, formType:'account'}))}>My Account</a>
+                                                <a id='usdd' class="dropdown-item" onClick={() => updateFormState(()=>({...formState, formType:'account'}))}>Account Info</a>
                                                 <div class="dropdown-divider"></div>
                                                 <button id='usdd' class="dropdown-item" onClick={ ()=>Auth.signOut()}>Sign Out</button>
                                         </div>
