@@ -215,23 +215,23 @@ ul a{
   /* font-weight: bold; */
 }
 
-/* ul a:hover{
+ul a:hover{
   background-color: transparent;
   color: #dab85b;
-} */
+}
 
-/* .active{
+.active{
   background-color:transparent;
   color: #947200;
   font-family:Exo;
-  font-size: 13px;
+  /* font-size: 13px; */
 }
 
 .bts1{
   color: #947200;
   text-decoration: dotted;
-  display: inline-block;
+  /* display: inline-block; */
   border-style: none;
   background-color:transparent;
   justify-content: space-around;
-} */
+}
