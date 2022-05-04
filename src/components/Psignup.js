@@ -61,14 +61,14 @@ function Signup() {
                   break;
             case 'signUp_failure':
                     console.log('user sign up failed : ', data.payload.data.message)
-                    alert(data.payload.data.message)
+                    // alert(data.payload.data.message)
                     break;
               case 'configured':
                   console.log('the Auth module is configured');
                   break;
-            case 'AuthError':
-                console.log("error ")
-                break;
+            // case 'AuthError':
+            //     console.log("error ")
+            //     break;
         }});
     }
 
@@ -111,18 +111,18 @@ function Signup() {
         // window.location.reload(false);
     }
 
-    async function forgotPassword(){
-        const {email} = formState
-        await Auth.forgotPassword(email)
-        updateFormState(()=>({...formState, formType:"confirmPassword" }))
-    }
+    // async function forgotPassword(){
+    //     const {email} = formState
+    //     await Auth.forgotPassword(email)
+    //     updateFormState(()=>({...formState, formType:"confirmPassword" }))
+    // }
 
-    async function confirmPassword(){
-        const {email, code, new_password} = formState
-        await Auth.forgotPasswordSubmit(email, code, new_password)
-        updateFormState(()=>({...formState, formType:"signIn" }))
-        alert("Password Changed Successfully")
-    }
+    // async function confirmPassword(){
+    //     const {email, code, new_password} = formState
+    //     await Auth.forgotPasswordSubmit(email, code, new_password)
+    //     updateFormState(()=>({...formState, formType:"signIn" }))
+    //     alert("Password Changed Successfully")
+    // }
 
         return (
             <div className='div-login'>
@@ -199,7 +199,7 @@ function Signup() {
                     )
                 }
 
-                {
+                {/* {
                     formType==="forgotPassword"&&(
                         <div>
                             <input id='ipb' onChange={onChange} name="email" type="email" placeholder='Enter your registered email ID'></input>
@@ -212,14 +212,14 @@ function Signup() {
                     formType==='confirmPassword'&&(
                         <div>
                             <input id='ipb' onChange={onChange} name="email" type="email" placeholder='Enter your registered email ID'></input>
-                            <input id='ipb' name='code' onChange={onChange} placeholder='Enter the verification Code'/>
+                            <input id='ipb' name='code' onChange={onChange} placeholder='Enter the verification Code'/> */}
                             {/* <input name="code" onChange={onChange} placeholder='verification code'></input> */}
-                            <input id='ipb' type="password" name='new_password' onChange={onChange} placeholder='Enter a new password'></input>
+                            {/* <input id='ipb' type="password" name='new_password' onChange={onChange} placeholder='Enter a new password'></input> */}
                             {/* <input id='ipb' type="password" name='confirm_password' onChange={onChange} placeholder='confirm new password'></input> */}
-                            <button id='bt' onClick={confirmPassword}>Submit</button>
+                            {/* <button id='bt' onClick={confirmPassword}>Submit</button>
                         </div>
                     )
-                }
+                } */}
                 {
                     formType==='signIn' &&(
                     <div className='row'>
@@ -235,7 +235,7 @@ function Signup() {
                     <p id='par' onClick={() => updateFormState(()=>({...formState, formType:'signUp'}))}>Haven't registered? Sign Up Now </p>
                     <label>PASSWORD</label>
                     <input name='password' id='ipb' type="password" onChange={onChange} placeholder='Enter password' required/>
-                    <p id="par" onClick={() => updateFormState(()=>({...formState, formType:'forgotPassword'}))} >Forgot Password?</p>
+                    <p id="par" >Forgot Password?</p>
                     <label><input type="checkbox"/>{' '}Remember me on this browser</label>
                     <button onClick={signIn} id="bt">{' '}Secure Sign In</button>
                     
