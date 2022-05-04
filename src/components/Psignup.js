@@ -47,17 +47,17 @@ function Signup() {
               case 'signOut':
                   console.log('user signed out', data.payload.message);
                 //   alert(data.payload.message)
-                  updateFormState(()=>({...formState, formType:'main'}))
+                  updateFormState(()=>({...formState, formType:'signIn'}))
                 
                   break;
               case 'signIn_failure':
                   console.log('user sign in failed', data); 
-                  if(data.payload.data.message==="Custom auth lambda trigger is not configured for the user pool."){
-                    alert("Password is required!")
-                  }
-                  else{
-                      alert(data.payload.data.message)
-                  }
+                //   if(data.payload.data.message==="Custom auth lambda trigger is not configured for the user pool."){
+                //     alert("Password is required!")
+                //   }
+                //   else{
+                //       alert(data.payload.data.message)
+                //   }
                   break;
             case 'signUp_failure':
                     console.log('user sign up failed : ', data.payload.data.message)
@@ -129,11 +129,11 @@ function Signup() {
                    
                 {/* <div id="logo"> */}
                     <div className="row">
-                    {
+                    {/* {
                         formType==='main'&&(
                             <Navigate to='/'></Navigate>
                         )
-                    }
+                    } */}
                     {
                    formType==='signUp' && (
                        
